@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bhaskar Das — B.Tech CSE (AI/ML) Student | Portfolio</title>
+<meta name="description" content="Bhaskar Das — B.Tech Computer Science & Engineering (AI/ML) student. Python, Java, Data Structures, Machine Learning fundamentals." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F1117'/%3E%3Ctext x='50' y='66' font-size='46' text-anchor='middle' fill='%236C8EFF' font-family='monospace'%3E%3C/%3E%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ============ DESIGN TOKENS ============ */
+  :root{
+    --bg:#0B0D13;
+    --bg-alt:#0F1119;
+    --panel:#151826;
+    --panel-2:#1A1E2E;
+    --border:#262B3D;
+    --border-soft:#1E2233;
+    --text:#E9EBF5;
+    --text-muted:#9098B4;
+    --text-dim:#5C6382;
+    --blue:#6C8EFF;
+    --blue-dim:#4A5FBF;
+    --green:#3ED9A0;
+    --amber:#F2B84B;
+    --red:#FF6B7A;
+    --comment:#6E9B7A;
+    --font-mono:'JetBrains Mono', ui-monospace, monospace;
+    --font-sans:'Inter', system-ui, sans-serif;
+    --maxw:1180px;
+    --radius:14px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:96px;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:48px 48px;
+    opacity:.25;
+    pointer-events:none;
+    z-index:0;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ul{list-style:none;}
+  section{position:relative; z-index:1;}
+  ::selection{background:var(--blue); color:#fff;}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:3px; border-radius:4px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    color:var(--comment);
+    font-size:.85rem;
+    letter-spacing:.02em;
+    margin-bottom:14px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:"//";}
+  .eyebrow.hash::before{content:"$";}
+  h2.title{
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:clamp(1.6rem, 3.2vw, 2.4rem);
+    letter-spacing:-0.01em;
+    margin-bottom:10px;
+  }
+  .section-head{margin-bottom:44px; max-width:640px;}
+  .section-sub{color:var(--text-muted); font-size:1rem;}
+  .section-pad{padding:96px 0;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ============ WINDOW CHROME / HEADER ============ */
+  .winbar{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(11,13,19,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .winbar-inner{
+    max-width:var(--maxw); margin:0 auto; padding:12px 28px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .dots{display:flex; gap:7px;}
+  .dot{width:11px; height:11px; border-radius:50%;}
+  .dot.red{background:#FF5F56;}
+  .dot.yellow{background:#FFBD2E;}
+  .dot.green{background:#27C93F;}
+  .win-title{
+    font-family:var(--font-mono); font-size:.82rem; color:var(--text-dim);
+  }
+  .win-title b{color:var(--text-muted); font-weight:500;}
+
+  .tabbar{
+    position:fixed; top:41px; left:0; right:0; z-index:49;
+    background:var(--bg-alt);
+    border-bottom:1px solid var(--border-soft);
+    overflow-x:auto; scrollbar-width:none;
+  }
+  .tabbar::-webkit-scrollbar{display:none;}
+  .tabbar-inner{
+    max-width:var(--maxw); margin:0 auto; padding:0 20px;
+    display:flex; gap:2px; white-space:nowrap;
+  }
+  .tab{
+    font-family:var(--font-mono); font-size:.82rem;
+    color:var(--text-dim);
+    padding:12px 16px;
+    border-bottom:2px solid transparent;
+    cursor:pointer; transition:color .2s, border-color .2s, background .2s;
+    display:flex; align-items:center; gap:7px;
+  }
+  .tab .dot-i{width:6px;height:6px;border-radius:50%;background:var(--text-dim); transition:background .2s;}
+  .tab:hover{color:var(--text-muted); background:rgba(255,255,255,.02);}
+  .tab.active{color:var(--blue); border-color:var(--blue);}
+  .tab.active .dot-i{background:var(--blue); box-shadow:0 0 8px var(--blue);}
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:172px 0 100px;
+    position:relative;
+  }
+  .hero-glow{
+    position:absolute; top:-120px; left:50%; transform:translateX(-50%);
+    width:900px; height:500px;
+    background:radial-gradient(ellipse at center, rgba(108,142,255,.16), transparent 65%);
+    filter:blur(10px);
+    pointer-events:none; z-index:0;
+    animation:driftGlow 14s ease-in-out infinite alternate;
+  }
+  @keyframes driftGlow{
+    from{transform:translateX(-55%) translateY(0);}
+    to{transform:translateX(-45%) translateY(30px);}
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:start;
+  }
+  .code-window{
+    background:var(--panel); border:1px solid var(--border);
+    border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  .code-window .cw-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:11px 16px; border-bottom:1px solid var(--border-soft);
+    background:var(--panel-2);
+  }
+  .cw-filename{font-family:var(--font-mono); font-size:.78rem; color:var(--text-dim);}
+  .code-body{padding:22px 24px 26px; font-family:var(--font-mono); font-size:.92rem; overflow-x:auto;}
+  .code-line{display:flex; gap:18px; min-height:1.7em;}
+  .ln{color:var(--text-dim); user-select:none; width:16px; text-align:right; flex-shrink:0;}
+  .code-line .kw{color:#C792EA;}
+  .code-line .fn{color:var(--blue);}
+  .code-line .str{color:var(--green);}
+  .code-line .cm{color:var(--comment);}
+  .code-line .prop{color:#9CDCFE;}
+  .code-line .punc{color:var(--text-muted);}
+  .type-cursor{display:inline-block; width:8px; height:1.1em; background:var(--blue); vertical-align:middle; margin-left:2px; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .hero-role-line{margin-top:6px; padding-top:14px; border-top:1px dashed var(--border-soft); color:var(--green); font-family:var(--font-mono); font-size:.92rem;}
+  .hero-role-line .prompt{color:var(--text-dim); margin-right:8px;}
+
+  .hero-ctas{display:flex; gap:14px; margin-top:26px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono); font-size:.85rem; font-weight:500;
+    padding:13px 22px; border-radius:9px; cursor:pointer;
+    border:1px solid transparent; transition:transform .18s, box-shadow .18s, background .18s, border-color .18s;
+    display:inline-flex; align-items:center; gap:9px;
+  }
+  .btn-primary{background:var(--blue); color:#0B0D13;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(108,142,255,.55);}
+  .btn-ghost{background:transparent; border-color:var(--border); color:var(--text-muted);}
+  .btn-ghost:hover{border-color:var(--blue); color:var(--text); transform:translateY(-2px);}
+
+  .hero-photo-col{display:flex; flex-direction:column; align-items:center; gap:18px;}
+  .photo-frame{
+    position:relative; width:100%; max-width:280px; aspect-ratio:1/1;
+    border-radius:20px; padding:5px;
+    background:conic-gradient(from 180deg, var(--blue), var(--green), var(--amber), var(--blue));
+    animation:spinRing 8s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .photo-frame{animation:none;} }
+  @keyframes spinRing{to{transform:rotate(360deg);}}
+  .photo-frame-inner{
+    width:100%; height:100%; border-radius:16px; overflow:hidden;
+    background:var(--bg); position:relative;
+  }
+  .photo-frame-inner img{width:100%; height:100%; object-fit:cover; display:block;}
+  .status-chip{
+    font-family:var(--font-mono); font-size:.74rem; color:var(--green);
+    background:rgba(62,217,160,.09); border:1px solid rgba(62,217,160,.3);
+    padding:7px 13px; border-radius:20px; display:flex; align-items:center; gap:7px;
+  }
+  .status-chip .pulse{width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 0 rgba(62,217,160,.6); animation:pulse 1.8s infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(62,217,160,.55);}
+    70%{box-shadow:0 0 0 8px rgba(62,217,160,0);}
+    100%{box-shadow:0 0 0 0 rgba(62,217,160,0);}
+  }
+  .info-list{width:100%; max-width:280px; font-family:var(--font-mono); font-size:.78rem; color:var(--text-muted); display:flex; flex-direction:column; gap:8px;}
+  .info-list li{display:flex; justify-content:space-between; border-bottom:1px dashed var(--border-soft); padding-bottom:6px;}
+  .info-list li span:first-child{color:var(--text-dim);}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-photo-col{order:-1; max-width:220px; margin:0 auto 10px;}
+  }
+
+  /* ============ REVEAL ANIMATION ============ */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-stagger.in .stagger-item{opacity:1; transform:translateY(0);}
+  .stagger-item{opacity:0; transform:translateY(20px); transition:opacity .55s ease, transform .55s ease;}
+
+  /* ============ ABOUT ============ */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:60px; align-items:center;}
+  .about-text p{color:var(--text-muted); font-size:1.02rem; margin-bottom:16px;}
+  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .stat-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:20px; text-align:left;
+  }
+  .stat-num{font-family:var(--font-mono); font-size:1.7rem; font-weight:700; color:var(--blue);}
+  .stat-label{font-size:.8rem; color:var(--text-dim); margin-top:4px;}
+  @media (max-width:900px){ .about-grid{grid-template-columns:1fr;} }
+
+  /* ============ SKILLS ============ */
+  .skills-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  .chart-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:22px;
+  }
+  .chart-caption{font-family:var(--font-mono); font-size:.72rem; color:var(--text-dim); margin-top:12px; text-align:center;}
+  .skill-block{margin-bottom:28px;}
+  .skill-block h4{font-family:var(--font-mono); font-size:.82rem; color:var(--text-dim); margin-bottom:12px; text-transform:uppercase; letter-spacing:.06em;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .pill{
+    font-family:var(--font-mono); font-size:.8rem; color:var(--text-muted);
+    background:var(--panel-2); border:1px solid var(--border);
+    padding:8px 14px; border-radius:20px;
+    transition:transform .18s, border-color .18s, color .18s;
+  }
+  .pill:hover{transform:translateY(-3px); border-color:var(--blue); color:var(--text);}
+  .strength-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .strength-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 16px;
+    font-size:.86rem; color:var(--text-muted); display:flex; gap:10px; align-items:flex-start;
+  }
+  .strength-card .ic{color:var(--amber); font-family:var(--font-mono); flex-shrink:0;}
+  @media (max-width:900px){ .skills-grid{grid-template-columns:1fr;} }
+
+  /* ============ EDUCATION (git log timeline) ============ */
+  .timeline{position:relative; padding-left:30px;}
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(var(--border), var(--border) 70%, transparent);
+  }
+  .commit{position:relative; padding-bottom:38px;}
+  .commit:last-child{padding-bottom:0;}
+  .commit-dot{
+    position:absolute; left:-30px; top:4px; width:12px; height:12px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--blue); z-index:1;
+  }
+  .commit.head .commit-dot{background:var(--blue); box-shadow:0 0 0 4px rgba(108,142,255,.2);}
+  .commit-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px 20px;
+  }
+  .commit-top{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;}
+  .commit-hash{font-family:var(--font-mono); font-size:.74rem; color:var(--amber); background:rgba(242,184,75,.1); padding:2px 8px; border-radius:5px;}
+  .commit-badge{font-family:var(--font-mono); font-size:.7rem; color:var(--green); background:rgba(62,217,160,.1); border:1px solid rgba(62,217,160,.3); padding:2px 9px; border-radius:20px;}
+  .commit-msg{font-weight:700; font-size:1.02rem; margin-bottom:4px;}
+  .commit-meta{color:var(--text-muted); font-size:.88rem;}
+  .commit-meta .sep{color:var(--text-dim); margin:0 6px;}
+
+  /* ============ PROJECTS ============ */
+  .proj-note{
+    font-family:var(--font-mono); font-size:.85rem; color:var(--text-dim);
+    border:1px dashed var(--border); border-radius:10px; padding:14px 18px; margin-bottom:26px;
+  }
+  .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .proj-card{
+    border:1.5px dashed var(--border); border-radius:var(--radius); padding:26px 20px;
+    text-align:center; color:var(--text-dim); font-family:var(--font-mono); font-size:.85rem;
+    display:flex; flex-direction:column; align-items:center; gap:10px; justify-content:center;
+    min-height:170px; transition:border-color .2s, color .2s;
+  }
+  .proj-card:hover{border-color:var(--blue); color:var(--text-muted);}
+  .proj-card .plus{font-size:1.6rem; color:var(--blue);}
+  @media (max-width:900px){ .proj-grid{grid-template-columns:1fr;} }
+
+  /* ============ GITHUB STATS ============ */
+  .gh-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .gh-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px; overflow:hidden;}
+  .gh-card img{width:100%; height:auto; border-radius:8px;}
+  .gh-note{font-family:var(--font-mono); font-size:.76rem; color:var(--text-dim); margin-top:12px;}
+  @media (max-width:900px){ .gh-grid{grid-template-columns:1fr;} }
+
+  /* ============ CONTACT ============ */
+  .term{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    overflow:hidden; max-width:640px;
+  }
+  .term-body{padding:26px 28px; font-family:var(--font-mono); font-size:.92rem;}
+  .term-line{margin-bottom:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+  .term-line .prompt{color:var(--green);}
+  .term-line a, .term-line span.val{color:var(--text-muted); transition:color .18s;}
+  .term-line a:hover{color:var(--blue);}
+  .contact-cta{margin-top:22px; display:flex; gap:14px; flex-wrap:wrap;}
+  .loc-note{color:var(--text-dim); font-size:.78rem; margin-top:18px; font-family:var(--font-mono);}
+
+  footer{padding:44px 0 60px; text-align:center;}
+  footer p{font-family:var(--font-mono); font-size:.78rem; color:var(--text-dim);}
+
+  #backToTop{
+    position:fixed; bottom:24px; right:24px; z-index:40;
+    width:44px; height:44px; border-radius:50%;
+    background:var(--panel); border:1px solid var(--border); color:var(--text-muted);
+    font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transform:translateY(10px);
+    transition:opacity .25s, transform .25s, border-color .2s;
+  }
+  #backToTop.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+  #backToTop:hover{border-color:var(--blue); color:var(--blue);}
+
+  @media (max-width:640px){
+    .section-pad{padding:64px 0;}
+    .hero{padding:150px 0 70px;}
+    .wrap{padding:0 18px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="winbar">
+  <div class="winbar-inner">
+    <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+    <div class="win-title"><b>bhaskar-das</b> — portfolio — visual studio code</div>
+  </div>
+</header>
+
+<nav class="tabbar" id="tabbar">
+  <div class="tabbar-inner" id="tabbarInner">
+    <div class="tab active" data-target="home"><span class="dot-i"></span>index.html</div>
+    <div class="tab" data-target="about"><span class="dot-i"></span>about.md</div>
+    <div class="tab" data-target="skills"><span class="dot-i"></span>skills.json</div>
+    <div class="tab" data-target="education"><span class="dot-i"></span>education.log</div>
+    <div class="tab" data-target="projects"><span class="dot-i"></span>projects/</div>
+    <div class="tab" data-target="github"><span class="dot-i"></span>github_stats.sh</div>
+    <div class="tab" data-target="contact"><span class="dot-i"></span>contact.sh</div>
+  </div>
+</nav>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section id="home" class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="code-window reveal">
+            <div class="cw-head">
+              <span class="cw-filename">bhaskar_das.py</span>
+              <span class="cw-filename">Python 3.11</span>
+            </div>
+            <div class="code-body" id="codeBody">
+              <div class="code-line"><span class="ln">1</span><span><span class="kw">class</span> <span class="fn">BhaskarDas</span><span class="punc">:</span></span></div>
+              <div class="code-line"><span class="ln">2</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">def</span> <span class="fn">__init__</span><span class="punc">(self):</span></span></div>
+              <div class="code-line"><span class="ln">3</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span class="prop">role</span> <span class="punc">=</span> <span class="str">"B.Tech CSE (AI/ML) Student"</span></span></div>
+              <div class="code-line"><span class="ln">4</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span class="prop">based_in</span> <span class="punc">=</span> <span class="str">"Murshidabad, West Bengal"</span></span></div>
+              <div class="code-line"><span class="ln">5</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span class="prop">stack</span> <span class="punc">=</span> <span class="punc">[</span><span class="str">"Python"</span><span class="punc">,</span> <span class="str">"Java"</span><span class="punc">,</span> <span class="str">"DBMS"</span><span class="punc">]</span></span></div>
+              <div class="code-line"><span class="ln">6</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span class="prop">curious_about</span> <span class="punc">=</span> <span class="str">"Machine Learning"</span></span></div>
+              <div class="code-line"><span class="ln">7</span><span></span></div>
+              <div class="code-line"><span class="ln">8</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># still compiling, still learning</span></span></div>
+              <div class="code-line"><span class="ln">9</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">def</span> <span class="fn">say_hello</span><span class="punc">(self):</span></span></div>
+              <div class="code-line"><span class="ln">10</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"Let's build something intelligent."</span></span></div>
+              <div class="hero-role-line"><span class="prompt">&gt;&gt;&gt;</span><span id="typedRole"></span><span class="type-cursor"></span></div>
+            </div>
+          </div>
+
+          <div class="hero-ctas reveal">
+            <a href="assets/Bhaskar_Das_Resume.pdf" class="btn btn-primary" download>↓ Download Résumé</a>
+            <a href="#contact" class="btn btn-ghost" data-scroll="contact">Get in Touch</a>
+            <a href="#projects" class="btn btn-ghost" data-scroll="projects">View Projects</a>
+          </div>
+        </div>
+
+        <div class="hero-photo-col reveal">
+          <div class="photo-frame">
+            <div class="photo-frame-inner">
+              <img src="assets/profile.jpg" alt="Portrait of Bhaskar Das" />
+            </div>
+          </div>
+          <div class="status-chip"><span class="pulse"></span> Open to internships &amp; opportunities</div>
+          <ul class="info-list">
+            <li><span>university</span><span>Brainware, Barasat</span></li>
+            <li><span>branch</span><span>CSE — AI/ML</span></li>
+            <li><span>languages</span><span>EN · HI · BN</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section-pad">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <div class="eyebrow">about.md</div>
+          <h2 class="title">A quick intro</h2>
+          <p>I'm a motivated B.Tech Computer Science &amp; Engineering student specializing in Artificial Intelligence and Machine Learning at Brainware University, Barasat. I work with Python and Java, and I'm building a foundation in data structures, DBMS concepts, and the basics of AI and ML.</p>
+          <p>I'm looking for opportunities to apply what I've learned in real projects, pick up practical industry experience, and keep growing as a problem solver — I learn fast, adapt quickly, and enjoy figuring things out with a team.</p>
+        </div>
+        <div class="stat-grid reveal-stagger reveal">
+          <div class="stat-card stagger-item">
+            <div class="stat-num" data-count="2023" data-suffix="">2023</div>
+            <div class="stat-label">B.Tech started (Aug)</div>
+          </div>
+          <div class="stat-card stagger-item">
+            <div class="stat-num" data-count="88.42" data-suffix="%">0%</div>
+            <div class="stat-label">Secondary score</div>
+          </div>
+          <div class="stat-card stagger-item">
+            <div class="stat-num" data-count="3" data-suffix="">0</div>
+            <div class="stat-label">Languages spoken</div>
+          </div>
+          <div class="stat-card stagger-item">
+            <div class="stat-num" data-count="8" data-suffix="-day">0</div>
+            <div class="stat-label">Big Data Bootcamp, NIELIT Kolkata</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="section-pad" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">skills.json</div>
+        <h2 class="title">Skills &amp; Tools</h2>
+        <p class="section-sub">What I currently work with, and what I'm actively learning.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="reveal">
+          <div class="chart-card">
+            <canvas id="skillsRadar" height="260"></canvas>
+            <p class="chart-caption">self-rated proficiency — update the numbers in the code to match your level</p>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="skill-block">
+            <h4>Coursework &amp; Concepts</h4>
+            <div class="pill-row">
+              <span class="pill">Data Structures &amp; Algorithms (Java)</span>
+              <span class="pill">Basic DBMS Concepts</span>
+              <span class="pill">AI Tools &amp; Applications</span>
+              <span class="pill">Machine Learning Fundamentals</span>
+            </div>
+          </div>
+          <div class="skill-block">
+            <h4>Tools</h4>
+            <div class="pill-row">
+              <span class="pill">VS Code</span>
+              <span class="pill">MS Office 365</span>
+              <span class="pill">Canva</span>
+            </div>
+          </div>
+          <div class="skill-block">
+            <h4>Strengths</h4>
+            <div class="strength-grid">
+              <div class="strength-card"><span class="ic">▹</span>Quick learner</div>
+              <div class="strength-card"><span class="ic">▹</span>Problem-solving ability</div>
+              <div class="strength-card"><span class="ic">▹</span>Teamwork &amp; communication</div>
+              <div class="strength-card"><span class="ic">▹</span>Interest in AI &amp; ML</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section id="education" class="section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow hash">git log --education</div>
+        <h2 class="title">Education</h2>
+      </div>
+      <div class="timeline reveal-stagger reveal">
+        <div class="commit head stagger-item">
+          <div class="commit-dot"></div>
+          <div class="commit-card">
+            <div class="commit-top"><span class="commit-hash">HEAD</span><span class="commit-badge">in progress</span></div>
+            <div class="commit-msg">Bachelor of Technology — CSE (AI &amp; Machine Learning)</div>
+            <div class="commit-meta">Brainware University, Barasat<span class="sep">·</span>Aug 2023 – Present</div>
+          </div>
+        </div>
+        <div class="commit stagger-item">
+          <div class="commit-dot"></div>
+          <div class="commit-card">
+            <div class="commit-top"><span class="commit-hash">#2</span></div>
+            <div class="commit-msg">Higher Secondary</div>
+            <div class="commit-meta">Muralipukur High School, Murshidabad<span class="sep">·</span>Marks: 71.2%</div>
+          </div>
+        </div>
+        <div class="commit stagger-item">
+          <div class="commit-dot"></div>
+          <div class="commit-card">
+            <div class="commit-top"><span class="commit-hash">#1</span></div>
+            <div class="commit-msg">Secondary Education</div>
+            <div class="commit-meta">Muralipukur High School, Murshidabad<span class="sep">·</span>2015 – 2023<span class="sep">·</span>Marks: 88.42%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="section-pad" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">projects/</div>
+        <h2 class="title">Projects</h2>
+        <p class="section-sub">This directory is just getting started.</p>
+      </div>
+      <p class="proj-note reveal"># this folder is currently empty — drop your first repo in here. Swap any card below for a real project: name, one-line description, tech stack, and a link to the repo or a live demo.</p>
+      <div class="proj-grid reveal-stagger reveal">
+        <div class="proj-card stagger-item"><span class="plus">+</span>Add Project One</div>
+        <div class="proj-card stagger-item"><span class="plus">+</span>Add Project Two</div>
+        <div class="proj-card stagger-item"><span class="plus">+</span>Add Project Three</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GITHUB STATS ============ -->
+  <section id="github" class="section-pad">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow hash">./github_stats.sh</div>
+        <h2 class="title">GitHub Activity</h2>
+        <p class="section-sub">Live stats, pulled straight from GitHub. Replace <code>bhaskardas012</code> in the code with your real GitHub handle to activate these.</p>
+      </div>
+      <div class="gh-grid reveal-stagger reveal">
+        <div class="gh-card stagger-item">
+          <img src="https://github-readme-stats.vercel.app/api?username=bhaskardas012&show_icons=true&theme=dark&bg_color=151826&border_color=262B3D&title_color=6C8EFF&icon_color=3ED9A0&text_color=9098B4&hide_border=false" alt="GitHub stats" loading="lazy" />
+          <p class="gh-note"># github-readme-stats.vercel.app</p>
+        </div>
+        <div class="gh-card stagger-item">
+          <img src="https://github-readme-streak-stats.herokuapp.com/?user=bhaskardas012&theme=dark&background=151826&border=262B3D&ring=6C8EFF&fire=F2B84B&currStreakLabel=3ED9A0" alt="GitHub streak" loading="lazy" />
+          <p class="gh-note"># github-readme-streak-stats</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section-pad" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow hash">./contact.sh</div>
+        <h2 class="title">Let's talk</h2>
+        <p class="section-sub">Open to internships, entry-level roles, and interesting projects.</p>
+      </div>
+      <div class="term reveal">
+        <div class="cw-head">
+          <span class="cw-filename">contact.sh</span>
+          <span class="cw-filename">bash</span>
+        </div>
+        <div class="term-body">
+          <div class="term-line"><span class="prompt">$</span> echo $EMAIL <span class="val">→</span> <a href="mailto:bhaskardasabd@gmail.com">bhaskardasabd@gmail.com</a></div>
+          <div class="term-line"><span class="prompt">$</span> open --github <span class="val">→</span> <a href="https://github.com/bhaskardas012" target="_blank" rel="noopener">github.com/bhaskardas012</a></div>
+          <div class="term-line"><span class="prompt">$</span> open --linkedin <span class="val">→</span> <a href="https://www.linkedin.com/in/bhaskar-das-b57024380" target="_blank" rel="noopener">linkedin.com/in/bhaskar-das-b57024380</a></div>
+          <div class="term-line"><span class="prompt">$</span> whereis bhaskar <span class="val">→</span> <span class="val">Murshidabad, West Bengal, India</span></div>
+          <div class="contact-cta">
+            <a href="mailto:bhaskardasabd@gmail.com" class="btn btn-primary">✉ Email Me</a>
+            <a href="assets/Bhaskar_Das_Resume.pdf" class="btn btn-ghost" download>↓ Résumé</a>
+          </div>
+        </div>
+      </div>
+      <p class="loc-note"># phone number kept off the public page on purpose — it's on the résumé PDF for recruiters who download it.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>designed like an IDE, deployed like a project — © 2026 Bhaskar Das</p>
+</footer>
+
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+  // ---------- Typewriter ----------
+  const roles = [
+    "Aspiring AI/ML Engineer",
+    "Python & Java Learner",
+    "Problem Solver",
+    "Quick Learner"
+  ];
+  const typedEl = document.getElementById('typedRole');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function typewriter(){
+    if(reduceMotion){ typedEl.textContent = roles[0]; return; }
+    let ri = 0, ci = 0, deleting = false;
+    function tick(){
+      const word = roles[ri];
+      if(!deleting){
+        ci++;
+        typedEl.textContent = word.slice(0, ci);
+        if(ci === word.length){ deleting = true; setTimeout(tick, 1400); return; }
+      } else {
+        ci--;
+        typedEl.textContent = word.slice(0, ci);
+        if(ci === 0){ deleting = false; ri = (ri+1) % roles.length; }
+      }
+      setTimeout(tick, deleting ? 35 : 65);
+    }
+    tick();
+  }
+  typewriter();
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // ---------- Animated counters ----------
+  const counters = document.querySelectorAll('.stat-num');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const isFloat = target % 1 !== 0;
+      let cur = 0;
+      const steps = reduceMotion ? 1 : 40;
+      const inc = target / steps;
+      function step(){
+        cur += inc;
+        if(cur >= target){ el.textContent = (isFloat ? target.toFixed(2) : target) + suffix; return; }
+        el.textContent = (isFloat ? cur.toFixed(2) : Math.floor(cur)) + suffix;
+        requestAnimationFrame(step);
+      }
+      step();
+      cio.unobserve(el);
+    });
+  }, {threshold:.4});
+  counters.forEach(el=>cio.observe(el));
+
+  // ---------- Scrollspy + tab click ----------
+  const tabs = document.querySelectorAll('.tab');
+  const sections = [...tabs].map(t => document.getElementById(t.dataset.target));
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.getElementById(tab.dataset.target).scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+    });
+  });
+  document.querySelectorAll('[data-scroll]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      document.getElementById(a.dataset.scroll).scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+    });
+  });
+  const sio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id = e.target.id;
+        tabs.forEach(t=>t.classList.toggle('active', t.dataset.target === id));
+      }
+    });
+  }, {threshold:.5, rootMargin:"-90px 0px -50% 0px"});
+  sections.forEach(s=> s && sio.observe(s));
+
+  // ---------- Back to top ----------
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', ()=>{
+    backBtn.classList.toggle('show', window.scrollY > 600);
+  });
+  backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior: reduceMotion ? 'auto':'smooth'}));
+
+  // ---------- Skills radar chart ----------
+  const ctx = document.getElementById('skillsRadar');
+  if(ctx && window.Chart){
+    const isNarrow = window.innerWidth < 500;
+    Chart.defaults.font.family = "'JetBrains Mono', monospace";
+    new Chart(ctx, {
+      type:'radar',
+      data:{
+        labels:['Python','Java','Data Structures','DBMS Basics','ML Fundamentals','AI Tools'],
+        datasets:[{
+          label:'Self-rated skill level',
+          data:[80, 75, 60, 50, 50, 50], // TODO: adjust to your honest self-assessment
+          backgroundColor:'rgba(108,142,255,.18)',
+          borderColor:'#6C8EFF',
+          borderWidth:2,
+          pointBackgroundColor:'#3ED9A0',
+          pointBorderColor:'#0B0D13',
+          pointRadius:4
+        }]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:true,
+        plugins:{ legend:{display:false} },
+        scales:{
+          r:{
+            angleLines:{ color:'#262B3D' },
+            grid:{ color:'#262B3D' },
+            pointLabels:{ color:'#9098B4', font:{size: isNarrow ? 9 : 11} },
+            ticks:{ display:false, backdropColor:'transparent', stepSize:20 },
+            suggestedMin:0, suggestedMax:100
+          }
+        }
+      }
+    });
+  }
+</script>
+</body>
+</html>
